@@ -6,6 +6,44 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <input type="text" id="inputString" placeholder="Enter a string">
+    <button onclick="displayResult()">Count</button>
+    <h1 id="result"></h1>
+
+    <script>
+        function countAndListVietnameseLetters(input) {
+            const patterns = {
+                'aw': /aw/g,
+                'aa': /aa/g,
+                'dd': /dd/g,
+                'ee': /ee/g,
+                'oo': /oo/g,
+                'ow': /ow/g,
+                'w': /w/g
+            };
+
+            const vietnameseLetters = [];
+            let count = 0;
+
+            for (const pattern in patterns) {
+                if (patterns.hasOwnProperty(pattern)) {
+                    const matches = input.match(patterns[pattern]);
+                    if (matches) {
+                        count += matches.length;
+                        vietnameseLetters.push(pattern);
+                    }
+                }
+            }
+
+            return { count, vietnameseLetters };
+        }
+
+        function displayResult() {
+            const input = document.getElementById('inputString').value;
+            const resultElement = document.getElementById('result');
+            const { count, vietnameseLetters } = countAndListVietnameseLetters(input);
+            resultElement.innerText = `${count} (${vietnameseLetters.join(', ')})`;
+        }
+    </script>
 </body>
 </html>
